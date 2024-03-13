@@ -18,5 +18,9 @@
     "solidity-coverage": "^0.8.2",
     "typechain": "^8.1.0"
   },
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "erc-20-abi": "^1.0.1"
+  }
 }

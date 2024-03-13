@@ -6,7 +6,7 @@
 const provider = new ethers.providers.JsonRpcProvider("http://localhost:8545");
 var defaultAccount;
 
-const exchange_name = '';             // TODO: fill in the name of your exchange
+const exchange_name = 'iex';             // TODO: fill in the name of your exchange
 
 const token_name = 'ichain_token';                // TODO: replace with name of your token
 const token_symbol = 'ICH';              // TODO: replace with symbol for your token
@@ -17,8 +17,8 @@ const token_symbol = 'ICH';              // TODO: replace with symbol for your t
 // =============================================================================
 
 // TODO: Paste your token contract address and ABI here: 
-const token_address = '';      
-const token_abi = [];             
+const token_address = '0xB434f242D6A959B322d0e97dD7b723eCE56856c4';      
+const token_abi = require('erc-20-abi')             
 const token_contract = new ethers.Contract(token_address, token_abi, provider.getSigner());
 
 // TODO: Paste your exchange contract address and ABI here: 

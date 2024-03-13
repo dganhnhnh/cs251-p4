@@ -11,6 +11,7 @@ contract Token is Ownable, ERC20 {
     string private constant _name = 'ichain';                 // TODO: Give your token a name
 
     // TODO: add private members as needed!
+    bool private _disabled = false;
     // TODO: if you create private member, initialize it in the constructor
     
     constructor() ERC20(_name, _symbol) {}
@@ -27,6 +28,8 @@ contract Token is Ownable, ERC20 {
         onlyOwner
     {
         /******* TODO: Implement this function *******/
+        require(!_disabled, "Minting is disabled");
+        _mint(msg.sender, amount);
     }
 
     // Function disable_mint: Disable future minting of your token.
@@ -37,6 +40,6 @@ contract Token is Ownable, ERC20 {
         onlyOwner
     {
         /******* TODO: Implement this function *******/
-
+        _disabled = true;
     }
 }
