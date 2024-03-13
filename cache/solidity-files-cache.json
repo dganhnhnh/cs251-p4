@@ -2,13 +2,12 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "E:\\documents\\tovchain\\proj4\\contracts\\exchange.sol": {
-      "lastModificationDate": 1710305677082,
-      "contentHash": "9ab5cf8efb97a6d4707613efefd3acb5",
+      "lastModificationDate": 1710319570325,
+      "contentHash": "dd5ee0a592e6fdbd91cc4b11d74681bd",
       "sourceName": "contracts/exchange.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -41,13 +40,12 @@
       ]
     },
     "E:\\documents\\tovchain\\proj4\\contracts\\token.sol": {
-      "lastModificationDate": 1710314296568,
-      "contentHash": "97b0857f739d8d45da215a106d73b1e8",
+      "lastModificationDate": 1710316582440,
+      "contentHash": "fc7beeda4818c8f8f756d1c9695dc3b2",
       "sourceName": "contracts/token.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -84,9 +82,8 @@
       "contentHash": "896f68942c3a20e9ae3c3c5bfd3add54",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -120,9 +117,8 @@
       "contentHash": "3ae5166c6827a9cf1a7a462d1632b464",
       "sourceName": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -160,9 +156,8 @@
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -198,9 +193,8 @@
       "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -234,9 +228,8 @@
       "contentHash": "df36f7051335cd1e748b1b6463b7fdd3",
       "sourceName": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -270,9 +263,8 @@
       "contentHash": "909ab67fc5c25033fe6cd364f8c056f9",
       "sourceName": "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -308,9 +300,8 @@
       "contentHash": "302d9755e46bc69d7058b0cbe7185e37",
       "sourceName": "contracts/interfaces/IERC20.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -344,9 +335,8 @@
       "contentHash": "ae66265769cc28ebdaa34881df95bc5e",
       "sourceName": "contracts/Lock.sol",
       "solcConfig": {
-        "version": "0.8.24",
+        "version": "0.8.17",
         "settings": {
-          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200

@@ -30,6 +30,7 @@ contract Token is Ownable, ERC20 {
         /******* TODO: Implement this function *******/
         require(!_disabled, "Minting is disabled");
         _mint(msg.sender, amount);
+        
     }
 
     // Function disable_mint: Disable future minting of your token.
