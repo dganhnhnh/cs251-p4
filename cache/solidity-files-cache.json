@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "E:\\documents\\tovchain\\proj4\\contracts\\exchange.sol": {
-      "lastModificationDate": 1710319570325,
-      "contentHash": "dd5ee0a592e6fdbd91cc4b11d74681bd",
+      "lastModificationDate": 1710498514996,
+      "contentHash": "94ddf8ea218015c405c81fb546beb5a9",
       "sourceName": "contracts/exchange.sol",
       "solcConfig": {
         "version": "0.8.17",
@@ -40,8 +40,8 @@
       ]
     },
     "E:\\documents\\tovchain\\proj4\\contracts\\token.sol": {
-      "lastModificationDate": 1710316582440,
-      "contentHash": "fc7beeda4818c8f8f756d1c9695dc3b2",
+      "lastModificationDate": 1710497098593,
+      "contentHash": "820e3e6f6a3210e3dd5622a495c37119",
       "sourceName": "contracts/token.sol",
       "solcConfig": {
         "version": "0.8.17",

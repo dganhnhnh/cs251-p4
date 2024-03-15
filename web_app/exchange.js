@@ -17,6 +17,7 @@ const token_symbol = 'ICH';              // TODO: replace with symbol for your t
 // =============================================================================
 
 // TODO: Paste your token contract address and ABI here: 
+
 const token_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 const token_abi = [
   {
@@ -418,6 +419,39 @@ const exchange_abi = [
   },
   {
     "inputs": [],
+    "name": "debugPrint",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "exchange_name",
     "outputs": [
       {
@@ -574,6 +608,7 @@ async function init() {
     // total_supply is 10^5 which we represent as 10**5
     // Note a 10**5 off
     const total_supply = 100000;
+    // NOTE provider 
     await token_contract.connect(provider.getSigner(defaultAccount)).mint(total_supply / 2);
     await token_contract.connect(provider.getSigner(defaultAccount)).mint(total_supply / 2);
     await token_contract.connect(provider.getSigner(defaultAccount)).disable_mint();
@@ -612,24 +647,58 @@ async function getPoolState() {
 /*** ADD LIQUIDITY ***/
 async function addLiquidity(amountEth, maxSlippagePct) {
   /** TODO: ADD YOUR CODE HERE **/
+  // await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, ethers.utils.parseEther(amountEth));
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  const approveTx = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, ethers.utils.parseEther(amountEth));
+  // console.log(approveTx);
+  
+  // NOTE amountEth là string 
+  await exchange_contract.connect(provider.getSigner(defaultAccount)).addLiquidity({ value: ethers.utils.parseEther(amountEth) });
+  // NOTE defaultAccount = $("#myaccount").val(); 
+  // mới có test chạy thôi nên nó chuyển 100ETH
+  // cần approve chuyển token vì defaultAccount thay đổi
+  // NOTE ETH đã approve cho tất cả user rồi? 
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  // debug printing
 }
 
 /*** REMOVE LIQUIDITY ***/
 async function removeLiquidity(amountEth, maxSlippagePct) {
   /** TODO: ADD YOUR CODE HERE **/
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  const approveTx = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, ethers.utils.parseEther(amountEth));
+  
+  await exchange_contract.connect(provider.getSigner(defaultAccount)).removeLiquidity(amountEth);
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
 }
 
 async function removeAllLiquidity(maxSlippagePct) {
   /** TODO: ADD YOUR CODE HERE **/
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  // NOTE how much to approve 
+  // const approveTx = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, ethers.utils.parseEther(amountEth));
+  
+  await exchange_contract.connect(provider.getSigner(defaultAccount)).removeAllLiquidity();
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
 }
 
 /*** SWAP ***/
 async function swapTokensForETH(amountToken, maxSlippagePct) {
   /** TODO: ADD YOUR CODE HERE **/
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  const approveTx = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, ethers.utils.parseEther(amountEth));
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  
+  await exchange_contract.connect(provider.getSigner(defaultAccount)).swapTokensForETH(amountToken);
 }
 
 async function swapETHForTokens(amountEth, maxSlippagePct) {
   /** TODO: ADD YOUR CODE HERE **/
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  const approveTx = await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, ethers.utils.parseEther(amountEth));
+  console.log((await token_contract.connect(provider.getSigner(defaultAccount)).balanceOf(defaultAccount)).toNumber());
+  
+  await exchange_contract.connect(provider.getSigner(defaultAccount)).swapETHForTokens({ value: ethers.utils.parseEther(amountEth) });
 }
 
 // =============================================================================
@@ -876,6 +945,6 @@ const sanityCheck = async function () {
 // Sleep 3s to ensure init() finishes before sanityCheck() runs on first load.
 // If you run into sanityCheck() errors due to init() not finishing, please extend the sleep time.
 
-setTimeout(function () {
-  sanityCheck();
-}, 10000);
+// setTimeout(function () {
+//   sanityCheck();
+// }, 10000);

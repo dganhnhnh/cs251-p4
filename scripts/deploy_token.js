@@ -10,8 +10,7 @@ async function main() {
       console.log(`Failed to write to file`);
       console.log(`Manually input token address: ${tokenContract.address}`);
     });
-    console.log(`Successfully wrote token address ${tokenContract.address} to token_address.txt`)
-
+    console.log(`Successfully wrote token address ${tokenContract.address} to token_address.txt`)    
   } catch(error) {
     console.log(`Failed to write to file`);
     console.log(`Manually input token address: ${tokenContract.address}`);
