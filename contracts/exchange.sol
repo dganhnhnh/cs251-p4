@@ -111,11 +111,18 @@ contract TokenExchange is Ownable {
         console.log("k: ", k);
         console.log("total_shares: ", total_shares);
     }
+
+    function printAccount(address _addr) public view {
+        console.log("eth: ", address(_addr).balance);
+        console.log("token: ", token.balanceOf(address(_addr)));
+        console.log("shares: ", lps[_addr]);
+    }
     
     function addLiquidity() external payable {
         /******* TODO: Implement this function *******/
         uint amountETH = msg.value;
         uint amountTokens = amountETH * token_reserves / eth_reserves;
+        printAccount(msg.sender);
         // msg này đưa cho client ntn? -> báo qua ethers js về console 
         require(
             amountTokens <= token.balanceOf(msg.sender),
@@ -132,7 +139,7 @@ contract TokenExchange is Ownable {
         total_shares += shares;
 
         debugPrint();
-        console.log("shares: ", shares);
+        printAccount(msg.sender);
 
         emit AddLiquidity(msg.sender, amountTokens, amountETH);
     }
@@ -148,17 +155,11 @@ contract TokenExchange is Ownable {
         _;
     }
 
+
     function _enoughShares(uint shares) private view returns (bool) {
         return shares <= lps[msg.sender];
     }
 
-    // function _notEmptyEthReserves(uint new_eth_reserves) private pure returns (bool) {
-    //     return new_eth_reserves > 0;
-    // }
-
-    // function _notEmptyTokenReserves(uint new_token_reserves) private pure returns (bool) {
-    //     return new_token_reserves > 0;
-    // }
 
     // Function removeLiquidity: Removes liquidity given the desired amount of ETH to remove.
     // You can change the inputs, or the scope of your function, as needed.
@@ -172,17 +173,13 @@ contract TokenExchange is Ownable {
         // check if provider is entitled -> has enough shares
         uint sharesToWithdraw = (amountTokens * total_shares) / token_reserves ;
         console.log("amountTokens: ", amountTokens);
-        console.log("token_reserves: ", token_reserves);
-        console.log("total_shares: ", total_shares);
+        debugPrint();
 
-        console.log("sharesToWithdraw: ", sharesToWithdraw);
+        console.log("sharesToWithdraw: ", sharesToWithdraw); 
         require(_enoughShares(sharesToWithdraw), "Not enough shares");
 
         uint new_token_reserves = token_reserves - amountTokens;
         uint new_eth_reserves = eth_reserves - amountETH;
-        // // check if there is enough reserves
-        // require(new_eth_reserves > 0, "Not enough eth reserves");
-        // require(new_token_reserves > 0, "Not enough token reserves");
 
         // update reserves
         token_reserves = new_token_reserves;
@@ -195,7 +192,7 @@ contract TokenExchange is Ownable {
         k = token_reserves * eth_reserves;
 
         debugPrint();
-        console.log("shares: ", lps[msg.sender]);
+        printAccount(msg.sender);
     }
 
     // Function removeAllLiquidity: Removes all liquidity that msg.sender is entitled to withdraw
@@ -205,7 +202,8 @@ contract TokenExchange is Ownable {
         uint amountTokens = (token_reserves * lps[msg.sender]) / total_shares;
         uint amountETH = (eth_reserves * lps[msg.sender]) / total_shares;
 
-        // call token contract to approve transfer
+        debugPrint();
+        console.log("amountTokens: ", amountTokens);
 
         uint new_token_reserves = token_reserves - amountTokens;
         uint new_eth_reserves = eth_reserves - amountETH;
@@ -213,14 +211,18 @@ contract TokenExchange is Ownable {
         require(new_eth_reserves > 0, "Not enough eth reserves");
         require(new_token_reserves > 0, "Not enough token reserves");
 
+        // call token contract to approve transfer
         token.approve(address(this), amountTokens);
         token.transfer(msg.sender, amountTokens);
 
         token_reserves = new_token_reserves;
         eth_reserves = new_eth_reserves;
-        lps[msg.sender] = 0;
         total_shares -= lps[msg.sender];
+        lps[msg.sender] = 0;
         k = token_reserves * eth_reserves;
+
+        debugPrint();
+        printAccount(msg.sender);
     }
     /***  Define additional functions for liquidity fees here as needed ***/
 
@@ -230,7 +232,8 @@ contract TokenExchange is Ownable {
     // You can change the inputs, or the scope of your function, as needed.
     function swapTokensForETH(uint amountTokens) external payable {
         /******* TODO: Implement this function *******/
-        uint newEthReserves = k / (token_reserves + amountTokens);
+        uint newTokenReserves = token_reserves + amountTokens;
+        uint newEthReserves = k / newTokenReserves;
         uint amountETH = eth_reserves - newEthReserves ;
 
         // check not empty reserves
@@ -241,10 +244,12 @@ contract TokenExchange is Ownable {
         // transfer eth from contract to sender
         payable(msg.sender).transfer(amountETH);
         // update reserves
-        token_reserves += amountTokens;
+        token_reserves = newTokenReserves;
         eth_reserves = newEthReserves;
         // update k
         k = token_reserves * eth_reserves;
+        debugPrint();
+        printAccount(msg.sender);
     }
 
     // Function swapETHForTokens: Swaps ETH for your tokens
@@ -252,20 +257,22 @@ contract TokenExchange is Ownable {
     // You can change the inputs, or the scope of your function, as needed.
     function swapETHForTokens() external payable {
         /******* TODO: Implement this function *******/
-        uint newTokenReserves = k / (eth_reserves + msg.value);
+        uint newEthReserves = eth_reserves + msg.value;
+        uint newTokenReserves = k / newEthReserves;
         uint amountTokens = token_reserves - newTokenReserves ;
         // check not empty reserves
         require(newTokenReserves > 0, "Not enough token reserves");
 
         // transfer eth from sender to contract
-        eth_reserves += msg.value;
-        // TODO eth đã được chuyển bằng cách gọi hàm hay cần viết thêm?
+        // NOTE eth đã được chuyển bằng cách gọi hàm 
         // transfer token from contract to sender
         token.transfer(msg.sender, amountTokens);
         // update reserves
         token_reserves = newTokenReserves;
-        eth_reserves += msg.value;
+        eth_reserves = newEthReserves;
         // update k
         k = token_reserves * eth_reserves;
+        debugPrint();
+        printAccount(msg.sender);
     }
 }
