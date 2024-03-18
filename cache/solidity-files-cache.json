@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "E:\\documents\\tovchain\\proj4\\contracts\\exchange.sol": {
-      "lastModificationDate": 1710746959690,
-      "contentHash": "7d385dcef790456850129ca27d5f4ba8",
+      "lastModificationDate": 1710751645694,
+      "contentHash": "13e94e1f189ad0855d1e44e554a4fe54",
       "sourceName": "contracts/exchange.sol",
       "solcConfig": {
         "version": "0.8.17",

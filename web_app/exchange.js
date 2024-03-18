@@ -704,6 +704,9 @@ async function getPoolState() {
 async function addLiquidity(amountEth, maxSlippagePct) {
   /** TODO: ADD YOUR CODE HERE **/
   const ps = await getPoolState();
+  // calculate amountToken to approve
+  const amountToken = Math.ceil(ps['token_eth_rate']*amountEth);
+  await token_contract.connect(provider.getSigner(defaultAccount)).approve(exchange_address, amountToken);
 
   const max_exchange_rate = Math.ceil(ps['token_eth_rate'] * (exchange_rate_multiplier + exchange_rate_multiplier * maxSlippagePct / 100));
   const min_exchange_rate = Math.floor(ps['token_eth_rate'] * (exchange_rate_multiplier - exchange_rate_multiplier * maxSlippagePct / 100));
@@ -995,6 +998,6 @@ const sanityCheck = async function () {
 // Sleep 3s to ensure init() finishes before sanityCheck() runs on first load.
 // If you run into sanityCheck() errors due to init() not finishing, please extend the sleep time.
 
-setTimeout(function () {
-  sanityCheck();
-}, 3000);
+// setTimeout(function () {
+//   sanityCheck();
+// }, 3000);
